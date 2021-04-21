@@ -1,3 +1,6 @@
+// console.log(process.env.BASE_URL)
+const isDev = process.env.NODE_ENV
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -33,14 +36,11 @@ export default {
   },
   */
 
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '@/plugins/axios',
-  ],
+  plugins: ['@/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -81,7 +81,9 @@ export default {
             'https://keycloak.smartsarov.ru/auth/realms/master/protocol/openid-connect/userinfo',
           logout:
             'https://keycloak.smartsarov.ru/auth/realms/master/protocol/openid-connect/logout?redirect_uri=' +
-            encodeURIComponent(String(process.env.HOME_URI)),
+            encodeURIComponent(
+              isDev ? 'http://localhost:3000' : 'https://z-tst.vercel.app/'
+            ),
         },
         token: {
           // property: 'access_token',
@@ -105,12 +107,15 @@ export default {
     },
     redirect: {
       login: '/login',
-      logout: '/login',
+      logout: '/',
       // callback: '/login',
       home: '/',
     },
   },
 
+  router: {
+    middleware: ['auth'],
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }
