@@ -114,12 +114,14 @@ export default {
         codeChallengeMethod: 'S256',
       },
     },
+    /*
     redirect: {
       login: '/login',
       // logout: '/',
       callback: '/',
       home: '/',
     },
+    */
   },
 
   // router: {
