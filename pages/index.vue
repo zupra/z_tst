@@ -1,17 +1,16 @@
 <template>
   <div>
     <center>
-      <template v-if="$auth.user">
-        <button @click="$auth.logout()">logout()</button>
-      </template>
+      <button v-if="$auth.user" @click="$auth.logout()">logout()</button>
+      <N-link v-else to="/login">ВОЙТИ</N-link>
 
       <h1>Проверка Keycloak</h1>
-
-      <template v-if="$auth.user">
+      <br />
+      <div v-if="$auth.user">
         <button v-for="(K, V, idx) in API" :key="idx" @click="GET(K)">
           GET {{ V }}
         </button>
-      </template>
+      </div>
     </center>
     <pre>{{ DATA }}</pre>
   </div>
