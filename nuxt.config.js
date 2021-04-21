@@ -1,7 +1,18 @@
-// console.log(process.env.BASE_URL)
 const isDev = process.env.NODE_ENV
+console.log(isDev)
+// const BASE_URL = isDev ? 'http://localhost:3000' : 'https://z-tst.vercel.app/'
+
+const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
+console.log(BASE_URL)
 
 export default {
+
+  // https://nuxtjs.org/blog/moving-from-nuxtjs-dotenv-to-runtime-config
+  /**/
+  publicRuntimeConfig: {
+    BASE_URL: process.env.BASE_URL || 'URL/api/',
+  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -80,11 +91,9 @@ export default {
           userInfo:
             'https://keycloak.smartsarov.ru/auth/realms/master/protocol/openid-connect/userinfo',
           logout:
-            'https://keycloak.smartsarov.ru/auth/realms/master/protocol/openid-connect/logout?redirect_uri=' +
-            encodeURIComponent(
-              isDev ? 'http://localhost:3000' : 'https://z-tst.vercel.app/'
-            ),
+            'https://keycloak.smartsarov.ru/auth/realms/master/protocol/openid-connect/logout?redirect_uri=' + encodeURIComponent(BASE_URL),
         },
+        // ==================
         token: {
           // property: 'access_token',
           // type: 'Bearer',
@@ -95,11 +104,11 @@ export default {
           property: 'refresh_token',
           maxAge: 3600, // 60 * 60 * 24 * 30,
         },
-        watchLoggedIn: true,
-        resetOnError: true,
+        // watchLoggedIn: true,
+        // resetOnError: true,
 
         // responseType: 'code',
-        grantType: 'authorization_code',
+        // grantType: 'authorization_code',
         clientId: 'attestation-ui',
         scope: ['openid', 'profile', 'email'],
         codeChallengeMethod: 'S256',
@@ -107,15 +116,15 @@ export default {
     },
     redirect: {
       login: '/login',
-      logout: '/',
-      // callback: '/login',
+      // logout: '/',
+      callback: '/',
       home: '/',
     },
   },
 
-  router: {
-    middleware: ['auth'],
-  },
+  // router: {
+  //   middleware: ['auth'],
+  // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }

@@ -2,7 +2,7 @@
   <div>
     <center>
       <button v-if="$auth.user" @click="$auth.logout()">logout()</button>
-      <N-link v-else to="/login">ВОЙТИ</N-link>
+      <N-link v-else to="/login">Вы разлогинены, ВОЙТИ</N-link>
 
       <h1>Проверка Keycloak</h1>
       <br />
